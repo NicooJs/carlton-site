@@ -1,0 +1,191 @@
+/* ===== IMPORTAÇÃO DA FONTE URBANA ===== */
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+.sobre-video-section {
+  position: relative;
+  min-height: 80vh;
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+.sobre-video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.sobre-video-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sobre-video-overlay {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 2;
+}
+
+.sobre-content {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  text-align: left;
+}
+
+.sobre-title {
+  font-family: 'Anton', sans-serif;
+  font-weight: 100;
+  font-size: 10rem;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.sobre-paragraph {
+   font-family: 'Arial', sans-serif; 
+  font-size: 1.2rem;
+  line-height: 1.8;
+  font-weight: 80;
+  color: #e0e0e0;
+}
+
+.open-modal-container {
+  margin-top: 40px;
+  text-align: right;
+}
+
+.open-modal-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  color: #fff;
+  transition: opacity 0.3s;
+}
+
+.open-modal-button:hover {
+  opacity: 0.8;
+}
+
+.open-modal-button img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.open-modal-button span {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ===== ESTILOS PARA O MODAL ===== */
+.sobre-modal-overlay {
+  position: fixed; 
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(10, 10, 10, 0.85); 
+  z-index: 2000;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+
+.sobre-modal-content {
+  background-color: #1a1a1a; 
+  color: #e0e0e0; 
+  border: 1px solid #333;
+  padding: 30px; 
+  max-width: 700px; 
+  width: 90%; 
+  outline: none;
+}
+
+.modal-header {
+  font-family: 'Anton', sans-serif;
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  border-bottom: 1px solid #333; 
+  padding-bottom: 15px; 
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: 2rem; 
+  text-transform: uppercase; 
+  margin: 0;
+}
+
+.modal-close-button {
+  background: none; 
+  border: none; 
+  font-size: 2.5rem; 
+  color: #888;
+  cursor: pointer; 
+  transition: color 0.3s; 
+  line-height: 1;
+}
+
+.modal-close-button:hover { 
+  color: #fff; 
+}
+
+.modal-body p {
+  font-family: 'Arial', sans-serif; 
+  font-size: 1.1rem;
+  line-height: 1.8; 
+  margin-bottom: 20px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+
+  .sobre-video-section {
+    height: auto;
+    min-height: 70vh;
+    padding: 60px 20px;
+  }
+
+  .sobre-content {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .sobre-title {
+    font-size: 3.5rem;
+    letter-spacing: -1px;
+    margin-bottom: 30px;
+  }
+
+  .sobre-paragraph {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .open-modal-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+}

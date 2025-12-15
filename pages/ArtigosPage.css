@@ -1,0 +1,152 @@
+/* src/pages/ArtigosPage.css (COM ROLAGEM HORIZONTAL NO MOBILE) */
+
+.horizontal-scroll-page {
+  background: url('../assets/fundomidia.png');
+  font-family: 'Archivo', sans-serif;
+  color: #111;
+  padding: 20px 0 50px;
+  overflow: hidden; 
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Para Firefox */
+}
+/* Para Chrome, Safari e Opera */
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-inner {
+  display: flex;
+  gap: 140px; /* Espaçamento para desktop */
+  padding: 0 10vw; /* Padding para desktop */
+}
+
+.article-card-link {
+  text-decoration: none;
+  color: inherit;
+  background-color: #000000;
+  border: 10px solid #e0e0e0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efeito suave ao passar o mouse */
+}
+
+.article-card-link:hover {
+  transform: translateY(-5px); /* Leve elevação no hover */
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.scroll-item {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.scroll-image-wrapper {
+  overflow: hidden;
+  border-radius: 2px;
+  transition: transform 0.3s ease;
+}
+
+.scroll-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.scroll-item:hover .scroll-image {
+  transform: scale(1.03); /* Aumenta um pouco mais a imagem no hover */
+}
+
+.scroll-text {
+  margin-top: 15px;
+  max-width: 420px;
+  padding: 10px 15px; /* Adicionado padding para o texto não colar nas bordas */
+}
+
+.scroll-date {
+  font-family: 'Archivo', sans-serif;
+  font-size: 0.75rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.scroll-article-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  line-height: 1.3;
+}
+
+.scroll-subtitle {
+  font-family: 'Archivo', sans-serif;
+  font-size: 1rem;
+  color: #ffffff;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* --- Variants (não mudam) --- */
+.variant-large .scroll-image { aspect-ratio: 4 / 5; max-width: 440px; }
+/* ...outras variantes... */
+
+
+/* ========================================================================= */
+/* ===== RESPONSIVIDADE PARA ROLAGEM HORIZONTAL EM DISPOSITIVOS MÓVEIS ===== */
+/* ========================================================================= */
+@media (max-width: 768px) {
+    .horizontal-scroll-page {
+        padding-bottom: 30px;
+    }
+    
+    /* O container de rolagem agora tem o efeito "snap" para alinhar os cards */
+    .scroll-container {
+        scroll-snap-type: x mandatory;
+    }
+
+    /* O wrapper interno tem espaçamentos menores no mobile */
+    .scroll-inner {
+        gap: 20px; /* Espaço entre os artigos */
+        padding: 0 20px; /* Padding lateral para não colar nas bordas */
+    }
+
+    /* O card do artigo é o ponto de "snap" e ocupa quase toda a tela */
+    .article-card-link {
+        width: 85vw; /* Cada card ocupa 85% da largura da tela */
+        scroll-snap-align: start; /* Alinha o início do card com o início da área de rolagem */
+        border-width: 8px; /* Borda um pouco mais fina */
+    }
+
+    /* Remove o efeito de hover em dispositivos de toque para evitar problemas */
+    .article-card-link:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    .scroll-item:hover .scroll-image {
+        transform: none;
+    }
+
+    /* A imagem dentro do card se ajusta à nova largura */
+    .variant-large .scroll-image {
+        max-width: 100%; /* Remove a largura máxima fixa do desktop */
+    }
+
+    /* Ajuste de fontes para telas menores */
+    .scroll-article-title {
+        font-size: 1.5rem;
+    }
+    .scroll-subtitle {
+        font-size: 0.9rem;
+    }
+}

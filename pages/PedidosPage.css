@@ -1,0 +1,78 @@
+/* src/pages/PedidosPage.css */
+
+.pedidos-page-background {
+  background-color: #f8f8f8;
+  padding: 60px 0;
+  min-height: 80vh;
+  font-family: 'Inter', sans-serif;
+  color: #111;
+}
+
+.pedidos-page-background .section-title {
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 1.5rem;
+  color: #111;
+}
+
+.order-details-box {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.order-details-box h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.order-item:last-of-type { border-bottom: none; }
+.order-item img { width: 60px; height: 60px; object-fit: cover; }
+.order-item-info { flex-grow: 1; }
+.order-item-info span { display: block; font-size: 0.9rem; }
+.order-item-price { font-weight: 600; }
+
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-top: 20px;
+  margin-top: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.pedidos-empty {
+  text-align: center;
+  padding: 80px 0;
+}
+.pedidos-empty h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+.pedidos-empty a {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 25px;
+  background-color: #111;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+}

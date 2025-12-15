@@ -1,0 +1,434 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+.product-page-container {
+  background-color: #fff;
+  color: #111;
+  font-family: 'Montserrat', sans-serif;
+  max-width: 1200px;
+  margin: auto;
+  padding: 80px 20px 50px;
+}
+
+.detail-grid-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  margin-bottom: 30px;
+  align-items: flex-start;
+}
+
+.image-gallery-container {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 20px;
+}
+
+.thumbnail-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.thumbnail-button {
+  border: 1px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  transition: border 0.3s ease, transform 0.2s ease;
+}
+
+.thumbnail-button img {
+  width: 90px;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+  border-radius: 6px;
+}
+
+.thumbnail-button.active {
+  border: 1px solid #111;
+}
+
+.thumbnail-button:hover {
+  border: 1px solid #aaa;
+  transform: scale(1.04);
+}
+
+.main-image-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-image-wrapper img {
+  width: 100%;
+  border: 1px solid #eee;
+  max-height: 550px;
+  object-fit: contain;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+}
+
+.main-image-wrapper:hover img {
+  transform: scale(1.25);
+  cursor: zoom-out;
+}
+
+.fade-image {
+  animation: fadeIn 0.4s ease-in-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.info-column {
+  position: sticky;
+  top: 120px;
+}
+
+.detail-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.detail-price {
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.selector-group {
+  margin-bottom: 20px;
+}
+
+.selector-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.size-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.size-button {
+  border: 1px solid #ccc;
+  background: #fff;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.size-button.active,
+.size-button:hover {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.add-to-cart-button {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  padding: 15px;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 35px;
+  transition: background 0.3s ease;
+}
+
+.add-to-cart-button:hover {
+  background: #333;
+}
+
+.add-to-cart-button:disabled {
+  background: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.description-accordion {
+  border-top: 1px solid #eee;
+}
+
+.accordion-header {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 18px 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.accordion-icon {
+  font-size: 1.4rem;
+  transition: transform 0.3s ease;
+}
+
+.accordion-icon.open {
+  transform: rotate(45deg);
+}
+
+.accordion-content {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #444;
+  padding-bottom: 18px;
+  white-space: pre-line;
+}
+
+.specs-image {
+  width: 100%;
+  margin-top: 15px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+
+/* --- Produtos Relacionados com Destaque --- */
+.related-products-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  position: relative;
+  border-top: 2px solid #f0f0f0;
+}
+
+.related-products-section::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-45deg);
+  width: 28px;
+  height: 28px;
+  border-left: 3px solid #ccc;
+  border-bottom: 3px solid #ccc;
+  animation: bounceArrow 1.2s infinite;
+}
+
+@keyframes bounceArrow {
+  0%, 100% { transform: translate(-50%, 0) rotate(-45deg); opacity: 0.6; }
+  50% { transform: translate(-50%, 8px) rotate(-45deg); opacity: 1; }
+}
+
+.related-products-section h2 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  position: relative;
+  text-align: center;
+}
+
+.related-products-section h2::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #111;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.related-products-list {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+}
+
+.related-products-list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.related-products-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.related-card {
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #111;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.related-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+  border-radius: 6px 6px 0 0;
+}
+
+.related-card h3 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 10px;
+  flex-grow: 1;
+}
+
+.related-card p {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 0 10px 10px;
+}
+
+.related-card:hover {
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+}
+
+/* --- Modal de Zoom --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.modal-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+.modal-close-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #111;
+  color: #fff;
+  border: none;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.modal-close-button:hover {
+  background: #444;
+}
+
+
+/* =========================================== */
+/* === ESTILOS PARA DISPOSITIVOS MÓVEIS === */
+/* =========================================== */
+@media (max-width: 768px) {
+  .product-page-container {
+    /* Menos preenchimento no topo em telas pequenas */
+    padding: 30px 15px;
+  }
+
+  .detail-grid-layout {
+    /* Converte o layout para uma única coluna */
+    grid-template-columns: 1fr;
+    gap: 40px; /* Reduz o espaçamento entre a galeria e as informações */
+  }
+
+  .image-gallery-container {
+    grid-template-columns: 1fr;
+    gap: 15px; /* Reduz o espaçamento entre imagem principal e thumbnails */
+  }
+
+  .thumbnail-wrapper {
+    /* Organiza as miniaturas em linha */
+    flex-direction: row;
+    justify-content: center; /* Centraliza as miniaturas */
+    order: 2; /* Coloca as miniaturas abaixo da imagem principal */
+    overflow-x: auto; /* Adiciona rolagem horizontal se houver muitas miniaturas */
+    padding-bottom: 10px; /* Espaço para a barra de rolagem */
+    gap: 10px;
+  }
+  
+  /* Melhora a aparência da barra de rolagem das miniaturas */
+  .thumbnail-wrapper::-webkit-scrollbar {
+    height: 5px;
+  }
+  .thumbnail-wrapper::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 10px;
+  }
+
+  .thumbnail-button img {
+    /* Miniaturas um pouco menores para caber mais na tela */
+    width: 65px;
+    height: 80px;
+  }
+
+  .main-image-wrapper img {
+    max-height: 450px;
+    /* Remove o efeito de zoom no hover, inadequado para toque */
+    transform: none !important; 
+    cursor: pointer; /* Mantém o cursor para indicar que é clicável (para o modal) */
+  }
+
+  .info-column {
+    /* Remove o posicionamento fixo que não funciona bem no mobile */
+    position: static;
+    top: auto;
+  }
+
+  /* --- Ajustes de Tipografia para Melhor Leitura --- */
+  .detail-title {
+    font-size: 1.6rem; /* Título um pouco menor para não quebrar em várias linhas */
+  }
+
+  .detail-price {
+    font-size: 1.3rem; /* Preço ligeiramente menor */
+  }
+  
+  .related-products-section h2 {
+    font-size: 1.4rem; /* Título da seção de relacionados também menor */
+  }
+
+  .add-to-cart-button {
+    padding: 14px;
+    font-size: 1rem; /* Tamanho da fonte do botão mais proeminente */
+  }
+  
+  /* Garante que o scroll dos produtos relacionados seja suave */
+  .related-products-list {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* Melhora a experiência de scroll no iOS */
+  }
+}

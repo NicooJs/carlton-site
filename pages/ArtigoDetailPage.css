@@ -1,0 +1,274 @@
+:root {
+  --num-images: 1; /* valor padrão */
+}
+
+/* --- ESTILOS DESKTOP --- */
+.article-detail-page {
+  display: flex;
+  width: 100%;
+  background: #fff;
+  font-family: 'Archivo', sans-serif;
+}
+
+.article-text-column {
+  width: 50%;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  padding: 80px 5vw;
+  background: white;
+  overflow-y: auto;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f1f1f1;
+}
+
+.article-text-column::-webkit-scrollbar {
+  width: 8px;
+}
+.article-text-column::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.article-text-column::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+.article-text-column::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+
+.article-meta {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.article-detail-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  color: #111;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.article-body-text a {
+  color: #007bff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.article-body-text a:hover {
+  color: #0056b3;
+}
+
+.article-body-text {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+  color: #333;
+  max-width: 600px;
+}
+
+.article-body-text em {
+  font-style: italic;
+  color: inherit;
+}
+
+.back-to-feed-link {
+  display: inline-block;
+  margin-top: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #111;
+  padding-bottom: 3px;
+  text-decoration: none;
+  color: #111;
+}
+
+.article-image-column {
+  width: 50%;
+  position: relative; /* Garante que o .mobile-indicator se posicione em relação a esta coluna no mobile */
+}
+
+.image-stack {
+  height: calc(100vh * var(--num-images));
+  position: relative;
+}
+
+.image-stack-item {
+  height: 100vh;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+
+.image-stack-item img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.15);
+  animation: reveal 1s ease-out forwards;
+}
+
+@keyframes reveal {
+  from {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* --- ESTILOS DO INDICADOR DE SCROLL (DESKTOP) --- */
+.scroll-down-indicator {
+  position: fixed;
+  bottom: 40px;
+  left: 75%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  width: 24px;
+  height: 24px;
+  animation: chevronBounce 2s infinite ease-in-out;
+}
+
+.scroll-down-indicator span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-right: 3px solid black;
+  border-bottom: 3px solid black;
+  transform: rotate(45deg);
+}
+
+@keyframes chevronBounce {
+  0%, 20%, 100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0.5;
+  }
+}
+
+.image-carousel-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* =====================================================================
+   ESTILOS ESPECÍFICOS PARA INDICADORES MOBILE
+   ===================================================================== */
+
+/* Por padrão, esconde os indicadores de bolinha no desktop */
+.mobile-indicator {
+  display: none; 
+}
+
+
+/* --- ESTILOS MOBILE (APLICADOS APENAS EM TELAS ATÉ 900px) --- */
+@media (max-width: 900px) {
+  /* Esconde a seta de scroll no mobile */
+  .scroll-down-indicator {
+    display: none;
+  }
+
+  .article-detail-page {
+    flex-direction: column;
+  }
+
+  .article-image-column {
+    width: 100%;
+    order: 1;
+    position: relative; /* Crucial para o posicionamento absoluto do .mobile-indicator */
+  }
+
+  .image-carousel-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none; /* Esconde barra de rolagem no IE/Edge */
+    scrollbar-width: none; /* Esconde barra de rolagem no Firefox */
+  }
+
+  /* Esconde barra de rolagem no Chrome/Safari */
+  .image-carousel-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .image-stack-item {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    position: static; /* Não queremos sticky no mobile para cada imagem */
+    height: auto; /* Deixa a altura ser definida pelo conteúdo ou `img` */
+    width: 100%;
+  }
+
+  .image-stack-item img {
+    height: 70vh; /* Altura fixa para as imagens no carrossel mobile */
+    width: 100%;
+    object-fit: cover;
+    transform: none; /* Remove transformações de desktop */
+    animation: none; /* Remove animações de desktop */
+  }
+
+  .article-text-column {
+    order: 2;
+    width: 100%;
+    position: static; /* Remove sticky do desktop */
+    height: auto;
+    padding: 40px 25px 60px 25px;
+  }
+
+  .article-detail-title {
+    font-size: 2.5rem;
+  }
+  
+  /* ==========================================================================================
+     NOVAS REGRAS PARA INDICADORES MOBILE: Mais robustas para exibição
+     ========================================================================================== */
+  .mobile-indicator {
+    display: flex; /* Garante que os indicadores sejam exibidos */
+    position: absolute; /* Posiciona-os em relação ao `.article-image-column` */
+    bottom: 20px; /* Alinha na parte inferior do carrossel */
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 8px; /* Espaçamento entre as bolinhas */
+    z-index: 100; /* Garante que fiquem acima de outros elementos */
+    pointer-events: none; /* Ignora cliques/interações no indicador */
+    padding: 5px 10px; /* Adiciona um pouco de padding para área de background */
+    background: rgba(0, 0, 0, 0.2); /* Um fundo levemente escuro para contraste */
+    border-radius: 15px; /* Bordas arredondadas para o container */
+  }
+
+  .mobile-indicator .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%; /* Faz a forma de bolinha */
+    background: rgba(255, 255, 255, 0.5); /* Cor padrão da bolinha */
+    transition: all 0.3s ease-in-out; /* Transição suave para o estado ativo */
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6); /* Sombra para visibilidade em qualquer fundo */
+  }
+
+  .mobile-indicator .dot.active {
+    background: #ffffff; /* Bolinha ativa mais branca */
+    transform: scale(1.3); /* Bolinha ativa um pouco maior */
+  }
+}
+.article-detail-title span {
+  display: block;
+}

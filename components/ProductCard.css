@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+.product-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.product-card {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Estilos de background movidos para cá para aplicar em todos os cards */
+.product-image-container {
+    width: 70%;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    aspect-ratio: 1 / 1;
+    border-radius: 10%;
+    background-image: url('../assets/fundo card laranja.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.product-card-link:hover .product-image-container {
+    box-shadow: 0 10px 20px rgba(255, 253, 253, 0.08);
+}
+
+.product-card-link:hover .product-image {
+    transform: scale(1.08);
+}
+
+.product-info {
+    font-family: 'Anton', sans-serif;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0;
+}
+
+.product-title {
+    font-family: 'Anton', sans-serif !important;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: none;
+    margin: 0 0 5px 0;
+    color: #ffffff !important;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0;
+    transition: color 0.4s ease;
+}
+
+.product-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: #FFFFFF;
+    width: 0;
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.product-card-link:hover .product-title {
+    color: #ec3c14 !important;
+}
+
+.product-card-link:hover .product-title::after {
+    /* AQUI ESTÁ A ALTERAÇÃO: a cor da linha no hover */
+    background-color: #ec3c14; 
+    width: 100%;
+}
+
+.product-price {
+    font-family: 'Anton', sans-serif !important;
+    font-size: 1.5rem !important;
+    font-weight: 700;
+    color: #ffffff !important;
+    margin: 0;
+}
+
+.product-grid {
+    padding-bottom: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+@media (min-width: 1024px) {
+    .homepage .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.sobre-section-home {
+    padding: 100px 0;
+    background-color: #1a1a1a;
+    border-top: 1px solid #222;
+}
+
+.sobre-layout {
+    display: flex;
+    align-items: center;
+    gap: 5%;
+}
+
+.sobre-texto {
+    flex: 1;
+    max-width: 500px;
+}
+
+.sobre-titulo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    font-weight: 400;
+    line-height: 1.1;
+    color: #FFFFFF;
+    text-transform: none;
+    margin-bottom: 40px;
+}
+
+.sobre-texto p {
+    font-family: 'Archivo', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #bbbbbb;
+    margin-bottom: 25px;
+}
+
+.sobre-imagem-container {
+    flex: 1.5;
+    text-align: right;
+}
+
+.sobre-imagem-container img {
+    max-width: 100%;
+    height: auto;
+    max-height: 70vh;
+    object-fit: cover;
+    border: 1px solid #222;
+    filter: grayscale(80%);
+    transition: filter 0.4s ease;
+}
+
+.sobre-imagem-container img:hover {
+    filter: grayscale(0%);
+}
+
+@media (max-width: 900px) {
+    .sobre-layout {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 60px;
+    }
+    .sobre-texto {
+        max-width: 100%;
+    }
+    .sobre-imagem-container {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.collection-section {
+    background-color: #1b1a1a !important;
+    background-image: none !important;
+    padding: 1px 0;
+}
+.badge-ultimas {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ec3c14;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+.product-image-container {
+  position: relative; /* Necessário para o badge ficar dentro */
+}

@@ -1,0 +1,87 @@
+/* src/components/Footer.css (Opção Avançada) */
+
+.site-footer {
+  /* Usando um gradiente sutil para mais profundidade */
+  background: linear-gradient(to top, #000000, #111111);
+  border-top: 2px solid #333; /* Borda um pouco mais destacada */
+  padding: 60px 0;
+  margin-top: 100px;
+  color: #a0a0a0; /* Cor de texto geral um pouco mais clara */
+  text-align: center; /* Centraliza todo o texto por padrão */
+  font-size: 1rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 35px; /* Mais espaço entre as seções */
+}
+
+/* Estilo para o nome "CARLTON" */
+.footer-brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+
+/* Estilo para a navegação */
+.footer-nav {
+  display: flex;
+  gap: 30px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-nav a {
+  color: #a0a0a0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-nav a:hover {
+  color: #FFFFFF;
+}
+
+/* Ícones Sociais */
+.footer-socials {
+  display: flex;
+  gap: 30px;
+}
+
+.social-link {
+  color: #a0a0a0;
+  font-size: 1.7rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-link:hover {
+  color: #00aaff; /* Uma cor de destaque vibrante */
+  transform: translateY(-5px) scale(1.15); /* Efeito mais pronunciado */
+}
+
+/* Copyright */
+.footer-copyright {
+  font-size: 0.8rem;
+  color: #666;
+  letter-spacing: 0.5px;
+  text-transform: none; /* Copyright não precisa ser maiúsculo */
+}
+
+/* Deixa a navegação responsiva em celulares */
+@media (max-width: 768px) {
+  .footer-nav {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .footer-brand {
+    font-size: 1.5rem;
+  }
+  .site-footer {
+    padding: 40px 0;
+    margin-top: 60px;
+  }
+}

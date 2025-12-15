@@ -1,0 +1,175 @@
+/* Importando as novas fontes */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=DM+Serif+Display&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Nova base de fontes e cores */
+    font-family: 'Archivo', sans-serif;
+    background-color: #d9d9d9;
+    color: #FFFFFF;
+}
+
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+a:hover {
+    opacity: 0.7; /* Efeito de hover sutil */
+}
+
+/* Títulos com a nova fonte serifada */
+.section-title {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 3rem;
+    font-weight: 400; /* Fontes serifadas de display ficam melhores sem negrito */
+    text-align: center;
+    margin: 80px 0 50px 0;
+    color: #000000;
+    text-transform: none; /* Sem letras maiúsculas forçadas */
+    letter-spacing: 1px;
+}
+
+.container {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+/* SUBSTITUA O BLOCO ANTIGO DA COLEÇÃO POR ESTE NO SEU index.css */
+
+/* --- ESTILOS PARA A COLEÇÃO DE PRODUTOS --- */
+
+.collection-section {
+  background-color: #FFFFFF;
+  padding: 60px 0;
+}
+
+.collection-section .section-title {
+  color: #111111;
+}
+
+.product-grid {
+  display: grid;
+  /* AQUI VOCÊ CONTROLA O TAMANHO. */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.product-title {
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #111111;
+  margin: 0 0 5px 0;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 3px;
+}
+
+.product-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background-color: #111111;
+  width: 0;
+  transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.product-card-link:hover .product-title::after {
+  width: 100%;
+}
+
+.product-price {
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  color: #555555;
+  margin: 0;
+}
+/* COLE ESTE CÓDIGO NO FINAL DO SEU ARQUIVO HomePage.css */
+
+.sobre-section-home {
+  padding: 100px 0;
+  background-color: #1a1a1a;
+  border-top: 1px solid #222;
+  overflow: hidden;
+}
+
+.sobre-layout {
+  display: flex;
+  align-items: center;
+  gap: 5%;
+}
+
+.sobre-texto {
+  flex: 1;
+  max-width: 500px;
+  z-index: 2;
+  position: relative;
+}
+
+.sobre-titulo {
+  font-family: 'Anton', sans-serif;
+  font-size: 4rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.sobre-texto p {
+  font-family: 'Archivo', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: #bbbbbb;
+  margin-bottom: 25px;
+}
+
+.sobre-imagens-container {
+  flex: 1.5;
+  position: relative;
+  height: 500px;
+}
+
+.sobre-imagens-container img {
+  position: absolute;
+  max-width: 70%;
+  height: auto;
+  border: 1px solid #222;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
+}
+
+.sobre-imagens-container img:hover {
+  transform: scale(1.05);
+  z-index: 3;
+}
+
+.sobre-imagem-1 {
+  top: 0;
+  left: 0;
+  transform: rotate(-5deg);
+}
+
+.sobre-imagem-2 {
+  bottom: 0;
+  right: 0;
+  transform: rotate(3deg);
+}
+
+@media (max-width: 900px) {
+  .sobre-layout {
+    flex-direction: column;
+    gap: 60px;
+  }
+}
