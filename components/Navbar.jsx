@@ -1,26 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import './Navbar.css';
-import logo from '../assets/logo.png';
-import novinhaImg from '../assets/novinha.png';
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import "./Navbar.css";
+import logo from "../assets/logo.png";
+import novinhaImg from "../assets/novinha.png";
 
-// Hook personalizado para detectar clique fora do elemento
-const useClickOutside = (ref, hamburgerRef, handler) => {
+/* Hook para detectar clique fora */
+const useClickOutside = (ref, triggerRef, handler) => {
   useEffect(() => {
     const listener = (event) => {
       if (
         !ref.current ||
         ref.current.contains(event.target) ||
-        !hamburgerRef.current ||
-        hamburgerRef.current.contains(event.target)
+        !triggerRef.current ||
+        triggerRef.current.contains(event.target)
       ) {
         return;
       }
-      handler(event);
+      handler();
     };
-    document.addEventListener('mousedown', listener);
-    return () => document.removeEventListener('mousedown', listener);
-  }, [ref, hamburgerRef, handler]);
+
+    document.addEventListener("mousedown", listener);
+    return () => document.removeEventListener("mousedown", listener);
+  }, [ref, triggerRef, handler]);
 };
 
 export function Navbar({ cartItemCount, openCart }) {
@@ -33,124 +34,144 @@ export function Navbar({ cartItemCount, openCart }) {
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
 
-  // Efeito para o scroll (encolhe ao rolar)
+  const onHomePage =
+    location.pathname === "/" || location.pathname === "/home";
+
+  /* Scroll shrink */
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
-    handleScroll(); // já seta certo ao entrar na página
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fecha o menu ao clicar fora
+  /* Fecha menu ao clicar fora */
   useClickOutside(menuRef, hamburgerRef, () => setIsOpen(false));
 
-  // ✅ Agora a navbar só fica pequena quando há scroll
   const shouldBeSmall = isScrolled;
+
+  const scrollToIdWithOffset = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const header = document.querySelector(".main-header");
+    const headerHeight = header
+      ? header.getBoundingClientRect().height
+      : 0;
+
+    const y =
+      el.getBoundingClientRect().top +
+      window.scrollY -
+      headerHeight -
+      10;
+
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
 
   const handleLinkClick = (path) => {
     setIsOpen(false);
 
-    // rota normal
-    if (!path.includes('#')) {
+    if (!path.includes("#")) {
       navigate(path);
       return;
     }
 
-    // âncora
-    const [basePath, hash] = path.split('#');
-    const targetId = hash;
+    const [base, hash] = path.split("#");
 
-    // se não estiver na página base, navega pra ela
-    if (location.pathname !== basePath) {
-      navigate(basePath);
-
-      // espera 1 frame pra página renderizar e então scrolla
+    if (!onHomePage) {
+      navigate(base || "/");
       requestAnimationFrame(() => {
-        const element = document.getElementById(targetId);
-        if (element) element.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => scrollToIdWithOffset(hash), 60);
       });
-
       return;
     }
 
-    // se já estiver na página, só scrolla
-    const element = document.getElementById(targetId);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
+    scrollToIdWithOffset(hash);
   };
 
-  // ✅ Ajuste importante: se sua home agora é "/", deixe assim:
-  // Troque "/home" por "/" no menu se for o seu caso.
   const menuItems = [
-    { label: 'Início', path: '/' },
-    { label: 'Loja', path: '/#colecao', isAnchor: true },
-    { label: 'Mídia', path: '/midia' },
-    { label: 'Artigos', path: '/feed' },
-    { label: 'Pedidos', path: '/meus-pedidos' },
-    { label: 'Sobre', path: '/#sobre', isAnchor: true },
+    { label: "Início", path: "/" },
+    { label: "Loja", path: "/#colecao", isAnchor: true },
+    { label: "Mídia", path: "/midia" },
+    { label: "Artigos", path: "/feed" },
+    { label: "Pedidos", path: "/meus-pedidos" },
+    { label: "Sobre", path: "/#sobre", isAnchor: true },
   ];
 
   return (
-    <header className={`main-header ${shouldBeSmall ? 'scrolled' : ''}`}>
+    <header className={`main-header ${shouldBeSmall ? "scrolled" : ""}`}>
       <div className="container">
         <nav className="navbar">
+          {/* Hamburger */}
           <button
             ref={hamburgerRef}
-            className={`hamburger ${isOpen ? 'active' : ''}`}
-            onClick={() => setIsOpen(!isOpen)}
+            className={`hamburger ${isOpen ? "active" : ""}`}
+            onClick={() => setIsOpen((v) => !v)}
             aria-label="Abrir menu"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
+            type="button"
           >
             <span className="bar"></span>
             <span className="bar"></span>
             <span className="bar"></span>
           </button>
 
-          <Link to="/" className="nav-logo-center" onClick={() => setIsOpen(false)}>
-            <img src={logo} alt="Logo animado da marca" />
+          {/* Logo */}
+          <Link
+            to="/"
+            className="nav-logo-center"
+            onClick={() => setIsOpen(false)}
+          >
+            <img src={logo} alt="Logo Carlton" />
           </Link>
 
+          {/* Carrinho (ÚNICO lugar onde existe) */}
           <button
             className="nav-link cart-link"
             onClick={openCart}
             aria-label={`Carrinho com ${cartItemCount} itens`}
+            type="button"
           >
             <i className="fas fa-shopping-bag"></i>
-            {cartItemCount > 0 && <span className="cart-count-badge">{cartItemCount}</span>}
+            {cartItemCount > 0 && (
+              <span className="cart-count-badge">
+                {cartItemCount}
+              </span>
+            )}
           </button>
         </nav>
       </div>
 
-      {/* Menu Mobile */}
-      <div ref={menuRef} id="mobile-menu" className={`mobile-nav-menu ${isOpen ? 'active' : ''}`}>
+      {/* Menu lateral */}
+      <div
+        ref={menuRef}
+        id="mobile-menu"
+        className={`mobile-nav-menu ${isOpen ? "active" : ""}`}
+      >
         {menuItems.map((item, index) => (
           <Link
             key={item.label}
             to={item.path}
             className="nav-link"
             onClick={(e) => {
-              // evita o Link fazer navegação duplicada quando for âncora
               if (item.isAnchor) e.preventDefault();
               handleLinkClick(item.path);
             }}
-            style={{ transitionDelay: `${0.15 + index * 0.1}s` }}
+            style={{ transitionDelay: `${0.12 + index * 0.08}s` }}
           >
             {item.label}
           </Link>
         ))}
 
-        <button
-          className="nav-link"
-          onClick={() => {
-            openCart();
-            setIsOpen(false);
-          }}
-          style={{ transitionDelay: `${0.15 + menuItems.length * 0.1}s` }}
-        >
-          Carrinho
-        </button>
-
-        <img src={novinhaImg} alt="Detalhe decorativo" className="menu-footer-image" />
+        <img
+          src={novinhaImg}
+          alt="Detalhe decorativo"
+          className="menu-footer-image"
+        />
       </div>
     </header>
   );

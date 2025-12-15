@@ -1,23 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap");
 
 :root {
-  /* ✅ tamanhos base (desktop) */
-  --header-height: 96px;
-  --header-height-scrolled: 72px;
+  /* ✅ HEADER (aumentado pra caber a logo) */
+  --header-height: 120px;
+  --header-height-scrolled: 82px;
 
+  /* ✅ LOGO (maior, mas sem estourar o header) */
   --logo-height: 110px;
-  --logo-height-scrolled: 54px;
+  --logo-height-scrolled: 70px;
 
   --primary-bg-color: #111111;
-  --primary-text-color: #EAEAEA;
+  --primary-text-color: #eaeaea;
   --accent-color: #ffffff;
   --border-color: #333;
 
   --transition-speed: 0.28s;
-  --menu-transition-speed: 0.4s;
+  --menu-transition-speed: 0.35s;
 }
 
-/* --- HEADER FIXO --- */
+/* ===== HEADER FIXO ===== */
 .main-header {
   border-bottom: 1px solid var(--border-color);
   position: fixed;
@@ -28,38 +29,41 @@
   z-index: 1000;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* --- NAVBAR --- */
+/* ===== NAVBAR ===== */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: var(--header-height);
-  transition: height var(--transition-speed) ease-in-out;
+  transition: height var(--transition-speed) ease;
 }
 
 .main-header.scrolled .navbar {
   height: var(--header-height-scrolled);
 }
 
-/* Links / botões */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ✅ Garante que laterais não encolham e não sumam */
+.hamburger,
+.cart-link {
+  flex: 0 0 auto;
+}
+
+/* ===== LINKS ===== */
 .nav-link {
   color: var(--primary-text-color);
   font-size: 1.05rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.2s ease;
   background: none;
   border: none;
-  padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   position: relative;
   text-decoration: none;
 }
@@ -68,27 +72,29 @@
   color: var(--accent-color);
 }
 
-/* hover underline desktop */
+/* Hover underline desktop */
 @media (min-width: 768px) {
   .nav-link::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -6px;
     left: 0;
     width: 0;
     height: 2px;
     background-color: var(--accent-color);
-    transition: width var(--transition-speed) ease-in-out;
+    transition: width var(--transition-speed) ease;
   }
+
   .nav-link:hover::after {
     width: 100%;
   }
 }
 
-/* --- LOGO --- */
+/* ===== LOGO CENTRAL ===== */
 .nav-logo-center {
   height: 100%;
-  flex-grow: 1;
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,51 +102,51 @@
 
 .nav-logo-center img {
   height: var(--logo-height);
-  margin-top: 6px; /* ✅ bem menor que 30px (não estoura a header) */
-  transition: height var(--transition-speed) ease-in-out, margin-top var(--transition-speed) ease-in-out;
+  width: auto;
+  max-width: 100%;
+  display: block;
+  transition: height var(--transition-speed) ease;
 }
 
 .main-header.scrolled .nav-logo-center img {
   height: var(--logo-height-scrolled);
-  margin-top: 0;
 }
 
-/* --- CARRINHO --- */
+/* ===== CARRINHO ===== */
 .cart-link {
   position: relative;
-  font-size: 1.25rem;
-  color: var(--primary-text-color);
+  font-size: 1.3rem;
   padding: 10px;
   margin-right: -10px;
 }
 
 .cart-count-badge {
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 0;
+  right: 0;
   transform: translate(30%, -30%);
-  background-color: #ff0000;
-  color: #fff;
+  background-color: red;
+  color: white;
   border-radius: 50%;
   width: 16px;
   height: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 0.65rem;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* --- HAMBURGER --- */
+/* ===== HAMBURGER (✅ volta a aparecer) ===== */
 .hamburger {
-  display: block;
-  position: relative;
-  z-index: 1002;
   cursor: pointer;
   padding: 15px 20px;
   margin-left: -20px;
   background: transparent;
   border: none;
+
+  /* ✅ ESSENCIAL: fica acima da logo */
+  position: relative;
+  z-index: 1100;
 }
 
 .bar {
@@ -149,37 +155,36 @@
   height: 3px;
   margin: 5px auto;
   background-color: var(--accent-color);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease;
 }
 
-.hamburger.active .bar:nth-child(2) { opacity: 0; }
-.hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-.hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
 
-/* --- MENU MOBILE / DRAWER --- */
+/* ===== MENU MOBILE ===== */
 .mobile-nav-menu {
   position: fixed;
   top: 0;
   left: -100%;
+  width: 55%;
+  max-width: 320px;
   height: 100%;
-
-  /* ✅ largura “ideal” em qualquer tela */
-  width: clamp(260px, 28vw, 360px);
-
   background-color: rgba(17, 17, 17, 0.95);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   box-shadow: -4px 0 15px rgba(0, 0, 0, 0.4);
-  z-index: 1001;
-
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-
-  padding: 90px 20px 20px; /* espaço pra navbar */
+  padding: 120px 20px 20px;
   gap: 22px;
-
   transition: left var(--menu-transition-speed) ease;
+  z-index: 1050;
 }
 
 .mobile-nav-menu.active {
@@ -187,15 +192,11 @@
 }
 
 .mobile-nav-menu .nav-link {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
   font-size: 1.15rem;
   letter-spacing: 3px;
-  color: var(--primary-text-color);
-
   opacity: 0;
-  transform: translateX(18px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateX(16px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .mobile-nav-menu.active .nav-link {
@@ -203,44 +204,19 @@
   transform: translateX(0);
 }
 
-/* --- IMAGEM RODAPÉ --- */
-@keyframes pulseAnimation {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-}
-
-.menu-footer-image {
-  margin-top: auto;
-  align-self: flex-start;
-  width: 100%;
-  max-width: 280px;
-  height: auto;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.mobile-nav-menu.active .menu-footer-image {
-  opacity: 1;
-  transition-delay: 0.75s;
-  animation: pulseAnimation 3s infinite ease-in-out;
-}
-
-/* --- MOBILE FINO --- */
+/* ===== MOBILE ===== */
 @media (max-width: 767px) {
   :root {
-    --header-height: 86px;
-    --header-height-scrolled: 66px;
+    --header-height: 104px;
+    --header-height-scrolled: 76px;
 
-    --logo-height: 96px;
-    --logo-height-scrolled: 48px;
-  }
-
-  .nav-logo-center img {
-    margin-top: 4px;
+    --logo-height: 92px;
+    --logo-height-scrolled: 62px;
   }
 
   .mobile-nav-menu {
-    width: min(86vw, 320px);
+    width: 86%;
+    max-width: 320px;
+    padding-top: 110px;
   }
 }
