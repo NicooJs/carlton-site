@@ -23,6 +23,7 @@ import camisetacigarro3 from '../assets/camisetacigarro.png'
 import camisetapredio1 from '../assets/camisetapredio.png'
 import camisetapredio2 from '../assets/camisetapredio2.jpg'
 import camisetapredio3 from '../assets/camisetapredio3.jpg'
+import camisetaraggae from '../assets/camisetaraggae.png'
 
 
 
@@ -32,9 +33,9 @@ import './ProductDetailPage.css';
 const allProducts = [
     { 
     id: 1, 
-    title: 'Camiseta "São Vito"', 
+    title: 'Camiseta RockReggaeRoots', 
     price: 90.00, 
-    images: [camisetapredio1,camisetapredio2,camisetapredio3], 
+    images: [camisetaraggae], 
     description: 'Colaboração Antiamericanismo x Carlton 100% Algodão estampa em serigrafia feito a mão. Lavar separadamente ou com peças de cores similares. Usar sabão neutro. Não utilizar alvejantes. Evitar secadora. Secar à sombra. Passar com ferro a até 110 °C. Não realizar lavagem a seco.' 
   },
   { 
@@ -46,27 +47,34 @@ const allProducts = [
   },
     { 
     id: 3, 
+    title: 'Camiseta "São Vito"', 
+    price: 90.00, 
+    images: [camisetapredio1,camisetapredio2,camisetapredio3], 
+    description: 'Colaboração Antiamericanismo x Carlton 100% Algodão estampa em serigrafia feito a mão. Lavar separadamente ou com peças de cores similares. Usar sabão neutro. Não utilizar alvejantes. Evitar secadora. Secar à sombra. Passar com ferro a até 110 °C. Não realizar lavagem a seco.' 
+  },
+    { 
+    id: 4, 
     title: 'Camiseta "Cigarette"', 
     price: 90.00, 
     images: [camisetacigarro,camisetacigarro2,camisetacigarro3], 
     description: 'Lavar separadamente ou com peças de cores similares. Usar sabão neutro. Não utilizar alvejantes. Evitar secadora. Secar à sombra. Passar com ferro a até 110 °C. Não realizar lavagem a seco.' 
   },
    { 
-    id: 4, 
+    id: 5, 
     title: 'Bandeira "mão do povo"', 
     price: 39.99, 
     images: [bandeira1,bandeira2,bandeira3],
     description: 'Serigrafia em algodão cru feito a mão 70x50.'
   },
   { 
-    id: 5, 
+    id: 6, 
     title: 'Camiseta "Flerte"', 
     price: 90.00, 
     images: [flerteImg2, flerteImg4, flerteImg3], 
     description: 'Lavar separadamente ou com peças de cores similares.\n\nUsar sabão neutro. Não utilizar alvejantes.\n\nEvitar secadora. Secar à sombra.\n\nPassar com ferro a até 110 °C.\n\nNão realizar lavagem a seco.' 
   },
   { 
-    id: 6, 
+    id: 7, 
     title: 'Babylook "Flerte"', 
     price: 80.00, 
     images: [FlertemodeloF, FlertemodeloF2, FlerteFImg1],
