@@ -1,16 +1,16 @@
-/* =========================
-   MINI CART - ESTÉTICA CARLTON
-   Dark / clean / editorial
-   ========================= */
+/* MINI CART - ENCAIXADO NA NAVBAR (CARLTON) */
 
 .minicart-overlay {
   position: fixed;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: var(--header-offset);
+  height: calc(100% - var(--header-offset));
   background: rgba(0, 0, 0, 0.62);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.25s ease, visibility 0.25s ease;
-  z-index: 1200;
+  z-index: 2400; /* abaixo da navbar, acima do conteúdo */
 }
 
 .minicart-overlay.active {
@@ -18,21 +18,21 @@
   visibility: visible;
 }
 
-/* Drawer */
 .minicart-panel {
   position: fixed;
-  top: 0;
+  top: var(--header-offset);
   right: -420px;
   width: 100%;
   max-width: 420px;
-  height: 100%;
+  height: calc(100% - var(--header-offset));
   background: #111;
   color: #fff;
   border-left: 1px solid #222;
+  border-top: 1px solid #222; /* encaixe */
   display: flex;
   flex-direction: column;
   transition: right 0.45s cubic-bezier(0.25, 1, 0.5, 1);
-  z-index: 1300;
+  z-index: 2600; /* acima do overlay, abaixo da navbar */
 }
 
 .minicart-panel.active {
@@ -79,11 +79,9 @@
   opacity: 0.7;
 }
 
-.minicart-close-btn:hover {
-  opacity: 1;
-}
+.minicart-close-btn:hover { opacity: 1; }
 
-/* Items list */
+/* Items */
 .minicart-items {
   flex: 1;
   overflow-y: auto;
@@ -93,7 +91,6 @@
   gap: 18px;
 }
 
-/* Item */
 .minicart-item {
   display: flex;
   gap: 14px;
@@ -136,7 +133,6 @@
   font-weight: 500;
 }
 
-/* Quantity selector */
 .quantity-selector {
   display: inline-flex;
   align-items: center;
@@ -163,14 +159,8 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
-.qty-btn:active {
-  transform: scale(0.96);
-}
-
-.qty-btn:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
+.qty-btn:active { transform: scale(0.96); }
+.qty-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
 .qty-value {
   padding: 8px 12px;
@@ -181,7 +171,6 @@
   opacity: 0.9;
 }
 
-/* Remove */
 .item-remove-btn {
   margin-top: 2px;
   background: none;
@@ -196,11 +185,8 @@
   padding: 0;
 }
 
-.item-remove-btn:hover {
-  opacity: 1;
-}
+.item-remove-btn:hover { opacity: 1; }
 
-/* Price area */
 .item-actions {
   display: flex;
   align-items: flex-start;
@@ -246,7 +232,6 @@
   gap: 10px;
 }
 
-/* Buttons */
 .checkout-btn,
 .continue-shopping-btn {
   width: 100%;
@@ -261,7 +246,6 @@
     border-color 0.18s ease;
 }
 
-/* CTA: branco, editorial */
 .checkout-btn {
   background: #fff;
   color: #111;
@@ -273,7 +257,6 @@
   transform: scale(0.99);
 }
 
-/* Secundário: transparente */
 .continue-shopping-btn {
   background: transparent;
   color: #fff;
@@ -284,7 +267,7 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
-/* Empty state */
+/* Empty */
 .minicart-empty {
   flex: 1;
   display: flex;
@@ -309,24 +292,14 @@
   line-height: 1.6;
 }
 
-/* Anim */
 @keyframes minicartFade {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Mobile */
 @media (max-width: 480px) {
-  .minicart-panel {
-    max-width: 100%;
-  }
-
+  .minicart-panel { max-width: 100%; }
   .minicart-header,
   .minicart-items,
   .minicart-footer {

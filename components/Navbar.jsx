@@ -4,7 +4,6 @@ import "./Navbar.css";
 import logo from "../assets/logo.png";
 import novinhaImg from "../assets/novinha.png";
 
-/* Hook para detectar clique fora */
 const useClickOutside = (ref, triggerRef, handler) => {
   useEffect(() => {
     const listener = (event) => {
@@ -24,8 +23,8 @@ const useClickOutside = (ref, triggerRef, handler) => {
   }, [ref, triggerRef, handler]);
 };
 
-export function Navbar({ cartItemCount, openCart }) {
-  const [isOpen, setIsOpen] = useState(false);
+export function Navbar({ cartItemCount, toggleCart, closeCart, isCartOpen }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const location = useLocation();
@@ -34,62 +33,60 @@ export function Navbar({ cartItemCount, openCart }) {
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
 
-  const onHomePage =
-    location.pathname === "/" || location.pathname === "/home";
+  const isProductPage = location.pathname.startsWith("/produto");
+  const onHomePage = location.pathname === "/" || location.pathname === "/home";
 
-  /* Scroll shrink */
+  // Sempre controlar o "header-scrolled" no HTML
   useEffect(() => {
+    const root = document.documentElement;
+
+    const shouldBeSmall =
+      isProductPage || isMenuOpen || isCartOpen || window.scrollY > 10;
+
+    setIsScrolled(shouldBeSmall);
+    root.classList.toggle("header-scrolled", shouldBeSmall);
+  }, [location.pathname, isMenuOpen, isCartOpen, isProductPage]);
+
+  // Scroll só importa fora do ProductDetail
+  useEffect(() => {
+    if (isProductPage) return;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const shouldBeSmall = window.scrollY > 10 || isMenuOpen || isCartOpen;
+      setIsScrolled(shouldBeSmall);
+      document.documentElement.classList.toggle("header-scrolled", shouldBeSmall);
     };
 
-    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isProductPage, isMenuOpen, isCartOpen]);
 
-  /* Fecha menu ao clicar fora */
-  useClickOutside(menuRef, hamburgerRef, () => setIsOpen(false));
-
-  const shouldBeSmall = isScrolled;
-
-  const scrollToIdWithOffset = (id) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    const header = document.querySelector(".main-header");
-    const headerHeight = header
-      ? header.getBoundingClientRect().height
-      : 0;
-
-    const y =
-      el.getBoundingClientRect().top +
-      window.scrollY -
-      headerHeight -
-      10;
-
-    window.scrollTo({ top: y, behavior: "smooth" });
-  };
+  useClickOutside(menuRef, hamburgerRef, () => setIsMenuOpen(false));
 
   const handleLinkClick = (path) => {
-    setIsOpen(false);
+    setIsMenuOpen(false);
+    closeCart?.();
 
     if (!path.includes("#")) {
       navigate(path);
       return;
     }
 
+    // âncora na home
     const [base, hash] = path.split("#");
-
     if (!onHomePage) {
       navigate(base || "/");
       requestAnimationFrame(() => {
-        setTimeout(() => scrollToIdWithOffset(hash), 60);
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }, 60);
       });
       return;
     }
 
-    scrollToIdWithOffset(hash);
+    const el = document.getElementById(hash);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   const menuItems = [
@@ -102,55 +99,57 @@ export function Navbar({ cartItemCount, openCart }) {
   ];
 
   return (
-    <header className={`main-header ${shouldBeSmall ? "scrolled" : ""}`}>
+    <header className={`main-header ${isScrolled ? "scrolled" : ""}`}>
       <div className="container">
         <nav className="navbar">
-          {/* Hamburger */}
           <button
             ref={hamburgerRef}
-            className={`hamburger ${isOpen ? "active" : ""}`}
-            onClick={() => setIsOpen((v) => !v)}
-            aria-label="Abrir menu"
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
+            className={`hamburger ${isMenuOpen ? "active" : ""}`}
+            onClick={() => {
+              closeCart?.();
+              setIsMenuOpen((v) => !v);
+            }}
             type="button"
+            aria-label="Abrir menu"
+            aria-expanded={isMenuOpen}
           >
             <span className="bar"></span>
             <span className="bar"></span>
             <span className="bar"></span>
           </button>
 
-          {/* Logo */}
           <Link
             to="/"
             className="nav-logo-center"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              setIsMenuOpen(false);
+              closeCart?.();
+            }}
           >
             <img src={logo} alt="Logo Carlton" />
           </Link>
 
-          {/* Carrinho (ÚNICO lugar onde existe) */}
           <button
             className="nav-link cart-link"
-            onClick={openCart}
-            aria-label={`Carrinho com ${cartItemCount} itens`}
+            onClick={() => {
+              setIsMenuOpen(false);
+              toggleCart();
+            }}
             type="button"
+            aria-label={`Carrinho com ${cartItemCount} itens`}
           >
             <i className="fas fa-shopping-bag"></i>
             {cartItemCount > 0 && (
-              <span className="cart-count-badge">
-                {cartItemCount}
-              </span>
+              <span className="cart-count-badge">{cartItemCount}</span>
             )}
           </button>
         </nav>
       </div>
 
-      {/* Menu lateral */}
       <div
         ref={menuRef}
         id="mobile-menu"
-        className={`mobile-nav-menu ${isOpen ? "active" : ""}`}
+        className={`mobile-nav-menu ${isMenuOpen ? "active" : ""}`}
       >
         {menuItems.map((item, index) => (
           <Link
@@ -167,11 +166,7 @@ export function Navbar({ cartItemCount, openCart }) {
           </Link>
         ))}
 
-        <img
-          src={novinhaImg}
-          alt="Detalhe decorativo"
-          className="menu-footer-image"
-        />
+        <img src={novinhaImg} alt="Detalhe decorativo" className="menu-footer-image" />
       </div>
     </header>
   );

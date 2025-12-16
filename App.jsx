@@ -14,7 +14,6 @@ import { ScrollToTop } from './components/ScrollToTop';
 import { HomePage } from './pages/HomePage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
 import { MidiaPage } from './pages/MidiaPage';
-import { PedidosPage } from './pages/PedidosPage';
 import { ArtigosPage } from './pages/ArtigosPage';
 import { ArtigoDetailPage } from './pages/ArtigoDetailPage';
 import { CheckoutPage } from './pages/CheckoutPage';
@@ -43,8 +42,7 @@ export default function App() {
     try {
       const localData = localStorage.getItem('cartItems');
       return localData ? JSON.parse(localData) : [];
-    } catch (error) {
-      console.error('Erro ao ler o carrinho:', error);
+    } catch {
       return [];
     }
   });
@@ -53,13 +51,10 @@ export default function App() {
   const [shippingInfo, setShippingInfo] = useState(null);
 
   useEffect(() => {
-    try {
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    } catch (error) {
-      console.error('Erro ao salvar o carrinho:', error);
-    }
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
+  const toggleCart = () => setIsCartOpen(prev => !prev);
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
 
@@ -108,20 +103,20 @@ export default function App() {
     }
   };
 
-  const totalItemCount = cartItems.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
+  const totalItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <>
       <ScrollToTop />
 
       {isCheckoutPage && <CheckoutHeader />}
+
       {!isCheckoutPage && (
         <Navbar
           cartItemCount={totalItemCount}
-          openCart={openCart}
+          toggleCart={toggleCart}
+          closeCart={closeCart}
+          isCartOpen={isCartOpen}
         />
       )}
 
@@ -134,20 +129,18 @@ export default function App() {
       />
 
       <Routes>
-        {/* HOME AGORA É A RAIZ */}
         <Route path="/" element={<HomePage />} />
 
-        {/* ROTAS DO SITE */}
         <Route
           path="/produto/:productId"
           element={<ProductDetailPage addToCart={addToCart} />}
         />
+
         <Route path="/feed" element={<ArtigosPage />} />
         <Route path="/feed/:articleId" element={<ArtigoDetailPage />} />
         <Route path="/midia" element={<MidiaPage />} />
         <Route path="/meus-pedidos" element={<OrderStatusPage />} />
 
-        {/* CHECKOUT */}
         <Route
           path="/checkout"
           element={

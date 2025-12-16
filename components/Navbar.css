@@ -1,11 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap");
 
 :root {
-  /* ✅ HEADER (aumentado pra caber a logo) */
-  --header-height: 120px;
-  --header-height-scrolled: 82px;
+  --header-height: 100px;
+  --header-height-scrolled: 60px;
 
-  /* ✅ LOGO (maior, mas sem estourar o header) */
+  /* ✅ OFFSET GLOBAL usado por Menu + MiniCart */
+  --header-offset: var(--header-height);
+
   --logo-height: 110px;
   --logo-height-scrolled: 70px;
 
@@ -18,7 +19,12 @@
   --menu-transition-speed: 0.35s;
 }
 
-/* ===== HEADER FIXO ===== */
+/* ✅ quando a navbar encolhe, o HTML recebe a classe e atualiza o offset */
+html.header-scrolled {
+  --header-offset: var(--header-height-scrolled);
+}
+
+/* HEADER FIXO */
 .main-header {
   border-bottom: 1px solid var(--border-color);
   position: fixed;
@@ -26,10 +32,10 @@
   left: 0;
   width: 100%;
   background-color: var(--primary-bg-color);
-  z-index: 1000;
+  z-index: 3000; /* sempre acima de overlay/menu/minicart */
 }
 
-/* ===== NAVBAR ===== */
+/* NAVBAR */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -48,13 +54,12 @@
   padding: 0 20px;
 }
 
-/* ✅ Garante que laterais não encolham e não sumam */
 .hamburger,
 .cart-link {
   flex: 0 0 auto;
 }
 
-/* ===== LINKS ===== */
+/* LINKS */
 .nav-link {
   color: var(--primary-text-color);
   font-size: 1.05rem;
@@ -72,7 +77,7 @@
   color: var(--accent-color);
 }
 
-/* Hover underline desktop */
+/* underline desktop */
 @media (min-width: 768px) {
   .nav-link::after {
     content: "";
@@ -90,7 +95,7 @@
   }
 }
 
-/* ===== LOGO CENTRAL ===== */
+/* LOGO */
 .nav-logo-center {
   height: 100%;
   flex: 1 1 auto;
@@ -112,7 +117,7 @@
   height: var(--logo-height-scrolled);
 }
 
-/* ===== CARRINHO ===== */
+/* CARRINHO */
 .cart-link {
   position: relative;
   font-size: 1.3rem;
@@ -125,28 +130,27 @@
   top: 0;
   right: 0;
   transform: translate(30%, -30%);
-  background-color: red;
-  color: white;
+  background-color: #ff0000;
+  color: #fff;
   border-radius: 50%;
   width: 16px;
   height: 16px;
-  font-size: 0.65rem;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: bold;
 }
 
-/* ===== HAMBURGER (✅ volta a aparecer) ===== */
+/* HAMBURGER */
 .hamburger {
   cursor: pointer;
   padding: 15px 20px;
   margin-left: -20px;
   background: transparent;
   border: none;
-
-  /* ✅ ESSENCIAL: fica acima da logo */
   position: relative;
-  z-index: 1100;
+  z-index: 3100;
 }
 
 .bar {
@@ -158,33 +162,30 @@
   transition: all 0.3s ease;
 }
 
-.hamburger.active .bar:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active .bar:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-}
-.hamburger.active .bar:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-}
+.hamburger.active .bar:nth-child(2) { opacity: 0; }
+.hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-/* ===== MENU MOBILE ===== */
+/* ✅ MENU LATERAL ENCAIXADO NA NAVBAR (sem passar por cima) */
 .mobile-nav-menu {
   position: fixed;
-  top: 0;
+  top: var(--header-offset);
   left: -100%;
   width: 55%;
   max-width: 320px;
-  height: 100%;
-  background-color: rgba(17, 17, 17, 0.95);
+  height: calc(100% - var(--header-offset));
+  background-color: rgba(17, 17, 17, 0.96);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: -4px 0 15px rgba(0, 0, 0, 0.4);
+  z-index: 2500; /* abaixo da navbar */
   display: flex;
   flex-direction: column;
-  padding: 120px 20px 20px;
+  align-items: flex-start;
+  padding: 22px 20px 20px;
   gap: 22px;
   transition: left var(--menu-transition-speed) ease;
-  z-index: 1050;
+  border-top: 1px solid #222; /* encaixe */
 }
 
 .mobile-nav-menu.active {
@@ -192,6 +193,7 @@
 }
 
 .mobile-nav-menu .nav-link {
+  font-weight: 300;
   font-size: 1.15rem;
   letter-spacing: 3px;
   opacity: 0;
@@ -204,7 +206,30 @@
   transform: translateX(0);
 }
 
-/* ===== MOBILE ===== */
+/* imagem decorativa */
+@keyframes pulseAnimation {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+.menu-footer-image {
+  margin-top: auto;
+  align-self: flex-start;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.mobile-nav-menu.active .menu-footer-image {
+  opacity: 1;
+  transition-delay: 0.65s;
+  animation: pulseAnimation 3s infinite ease-in-out;
+}
+
+/* MOBILE */
 @media (max-width: 767px) {
   :root {
     --header-height: 104px;
@@ -217,6 +242,5 @@
   .mobile-nav-menu {
     width: 86%;
     max-width: 320px;
-    padding-top: 110px;
   }
 }

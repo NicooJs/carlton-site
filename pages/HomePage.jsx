@@ -1,11 +1,13 @@
-/* Site realizado 100% por Nicolas Arantes https://www.linkedin.com/in/nicolasarantes*/
+/* Site realizado 100% por Nicolas Arantes https://www.linkedin.com/in/nicolasarantes */
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { scroller } from 'react-scroll';
 import { ProductCard } from '../components/ProductCard.jsx';
-import { Carousel } from '../components/Carousel.jsx';
 import { SobreSection } from '../components/SobreSection.jsx';
 import './HomePage.css';
+
+// GIF de fundo
+import raggaefundo from '../assets/raggaefundo.gif';
 
 // Camisetas //
 import camisetaFlerte from '../assets/camiseta flerte.png';
@@ -14,32 +16,35 @@ import camisetaFlertef from '../assets/camisetaflertef.png';
 import fotopatch1 from '../assets/foto patch card.png';
 import fotobandeira from '../assets/bandeira foto do card.png';
 import camisetaaudionoise from '../assets/camiseta site.png';
-import camisetacigarro from '../assets/camisetacigarro.png';
+import camisapolo from '../assets/camisapolo.png';
 import camisetapredio1 from '../assets/camisetapredio.png';
+import camisetaraggae from '../assets/camisetaraggae.png';
+
+
 
 // Lista de produtos
 const products = [
   {
     id: 1,
-    title: 'Camiseta "São Vito"',
+    title: 'Camiseta "Reggae"',
     price: 90.00,
-    image: camisetapredio1,
+    image: camisetaraggae,
     hoverImage: camisetaFlerteHover,
     description: 'Peça com tecido premium...'
   },
   {
     id: 2,
-    title: 'Patch "Carlton"',
-    price: 29.99,
-    image: fotopatch1,
+    title: 'Camisa Polo ',
+    price: 90.00,
+    image: camisapolo,
     hoverImage: camisetaFlerteHover,
     description: 'Peça com tecido premium...'
   },
   {
     id: 3,
-    title: 'Camiseta "Cigarette"',
+    title: 'Camisa Polo',
     price: 90.00,
-    image: camisetacigarro,
+    image: camisapolo,
     description: 'Serigrafia em algodão cru feito a mão'
   },
   {
@@ -87,24 +92,29 @@ export function HomePage() {
 
   return (
     <>
-      <div id="inicio" className="homepage">
-        <Carousel />
-      </div>
+      {/* HERO COM GIF */}
+      <section id="inicio" className="hero-gif">
+        <img src={raggaefundo} alt="Carlton background" />
+      </section>
+
       <main id="colecao" className="collection-section homepage">
         <div className="container">
-          <div className="product-grid">
-            {products.map((product, index) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                index={index} //  agora cada ProductCard sabe qual é o 3º item
-              />
-            ))}
-          </div>
+         <div className="product-grid editorial">
+  {products.map((product, index) => (
+    <ProductCard
+      key={product.id}
+      product={product}
+      index={index}
+      featured={index === 0}
+      wide={index === 3}
+    />
+  ))}
+</div>
+
         </div>
       </main>
+
       <SobreSection />
     </>
   );
 }
-

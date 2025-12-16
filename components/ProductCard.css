@@ -1,203 +1,252 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap');
 
-.product-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
+/* =====================================================
+   GRID EDITORIAL (MOBILE FIRST)
+   ===================================================== */
+
+.product-grid.editorial {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px 16px;
+  padding: 58px 0 80px;
 }
 
-.product-card {
-    background-color: transparent;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-}
-
-/* Estilos de background movidos para cá para aplicar em todos os cards */
-.product-image-container {
-    width: 70%;
-    overflow: hidden;
-    transition: box-shadow 0.3s ease;
-    aspect-ratio: 1 / 1;
-    border-radius: 10%;
-    background-image: url('../assets/fundo card laranja.png');
-    background-size: cover;
-    background-position: center;
-}
-
-.product-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-}
-
-.product-card-link:hover .product-image-container {
-    box-shadow: 0 10px 20px rgba(255, 253, 253, 0.08);
-}
-
-.product-card-link:hover .product-image {
-    transform: scale(1.08);
-}
-
-.product-info {
-    font-family: 'Anton', sans-serif;
-    width: 70%;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 0;
-}
-
-.product-title {
-    font-family: 'Anton', sans-serif !important;
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-transform: none;
-    margin: 0 0 5px 0;
-    color: #ffffff !important;
-    position: relative;
-    display: inline-block;
-    padding-bottom: 0;
-    transition: color 0.4s ease;
-}
-
-.product-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    background-color: #FFFFFF;
-    width: 0;
-    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.product-card-link:hover .product-title {
-    color: #ec3c14 !important;
-}
-
-.product-card-link:hover .product-title::after {
-    /* AQUI ESTÁ A ALTERAÇÃO: a cor da linha no hover */
-    background-color: #ec3c14; 
-    width: 100%;
-}
-
-.product-price {
-    font-family: 'Anton', sans-serif !important;
-    font-size: 1.5rem !important;
-    font-weight: 700;
-    color: #ffffff !important;
-    margin: 0;
-}
-
-.product-grid {
-    padding-bottom: 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
+/* =====================================================
+   DESKTOP: EDITORIAL COM VARIAÇÃO
+   ===================================================== */
 
 @media (min-width: 1024px) {
-    .homepage .product-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
+  .product-grid.editorial {
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-flow: dense;
+    gap: 46px 26px;
+    padding: 90px 0 110px;
+  }
+
+  .product-grid.editorial > a {
+    grid-column: span 3;
+  }
+
+  .product-grid.editorial > a.pcard--featured {
+    grid-column: span 6;
+  }
+
+  .product-grid.editorial > a.pcard--wide {
+    grid-column: span 4;
+  }
 }
 
-.sobre-section-home {
-    padding: 100px 0;
-    background-color: #1a1a1a;
-    border-top: 1px solid #222;
+/* =====================================================
+   LINK / CARD WRAPPER
+   ===================================================== */
+
+.pcard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  outline: none;
 }
 
-.sobre-layout {
-    display: flex;
-    align-items: center;
-    gap: 5%;
+.pcard:focus-visible .pcard__inner {
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.18), 0 22px 60px rgba(0,0,0,0.65);
 }
 
-.sobre-texto {
-    flex: 1;
-    max-width: 500px;
+/* =====================================================
+   CARD BASE (VISÍVEL COMO PRODUTO)
+   ===================================================== */
+
+.pcard__inner {
+  background: rgba(12, 12, 12, 0.96);
+  border-radius: 26px;
+  padding: 12px;
+
+  /* delimitação sutil (cara de produto) */
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+
+  transform: translateY(0);
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
 }
 
-.sobre-titulo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 5rem;
-    font-weight: 400;
-    line-height: 1.1;
-    color: #FFFFFF;
-    text-transform: none;
-    margin-bottom: 40px;
+.pcard:hover .pcard__inner {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.10);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.65);
 }
 
-.sobre-texto p {
-    font-family: 'Archivo', sans-serif;
-    font-size: 1.1rem;
-    line-height: 1.9;
-    color: #bbbbbb;
-    margin-bottom: 25px;
+/* =====================================================
+   MEDIA (IMAGEM) — SEM BARRAS PRETAS
+   ===================================================== */
+
+.pcard__media {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #111;
+
+  /* proporção padrão (fashion) */
+  aspect-ratio: 3 / 4;
+
+  /* contorno interno super sutil */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
-.sobre-imagem-container {
-    flex: 1.5;
-    text-align: right;
+/* featured/wide só no desktop */
+@media (min-width: 1024px) {
+  .pcard--featured .pcard__media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .pcard--wide .pcard__media {
+    aspect-ratio: 4 / 3;
+  }
 }
 
-.sobre-imagem-container img {
-    max-width: 100%;
-    height: auto;
-    max-height: 70vh;
-    object-fit: cover;
-    border: 1px solid #222;
-    filter: grayscale(80%);
-    transition: filter 0.4s ease;
+.pcard__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+
+  transform: scale(1.01);
+  transition: transform 600ms cubic-bezier(.2, .9, .2, 1), filter 260ms ease;
 }
 
-.sobre-imagem-container img:hover {
-    filter: grayscale(0%);
+.pcard:hover .pcard__img {
+  transform: scale(1.06);
+  filter: contrast(1.04);
 }
 
-@media (max-width: 900px) {
-    .sobre-layout {
-        flex-direction: column-reverse;
-        text-align: center;
-        gap: 60px;
-    }
-    .sobre-texto {
-        max-width: 100%;
-    }
-    .sobre-imagem-container {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-.collection-section {
-    background-color: #1b1a1a !important;
-    background-image: none !important;
-    padding: 1px 0;
-}
-.badge-ultimas {
+/* Overlay sempre DENTRO do media */
+.pcard__overlay {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #ec3c14;
-  color: #fff;
-  font-size: 0.8rem;
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 20px;
-  text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: 1px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 46%,
+    rgba(0, 0, 0, 0.70) 100%
+  );
+
+  opacity: 0.92;
+  transition: opacity 260ms ease;
 }
 
-.product-image-container {
-  position: relative; /* Necessário para o badge ficar dentro */
+.pcard:hover .pcard__overlay {
+  opacity: 1;
+}
+
+/* =====================================================
+   BADGE
+   ===================================================== */
+
+.pcard__badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 3;
+
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+
+  font-family: 'Archivo', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+
+  padding: 8px 10px;
+  border-radius: 999px;
+
+  box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+}
+
+/* =====================================================
+   CAPTION (TEXTO EDITORIAL DENTRO DO CARD)
+   ===================================================== */
+
+.pcard__caption {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  z-index: 3;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+
+  transform: translateY(10px);
+  transition: transform 360ms cubic-bezier(.2, .9, .2, 1);
+}
+
+/* no hover: sobe de leve */
+.pcard:hover .pcard__caption {
+  transform: translateY(0);
+}
+
+/* mobile: já aparece no lugar (sem depender de hover) */
+@media (max-width: 900px) {
+  .pcard__caption {
+    transform: translateY(0);
+  }
+}
+
+.pcard__title {
+  margin: 0;
+  font-family: 'Archivo', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.95);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pcard__price {
+  font-family: 'Archivo', sans-serif;
+  font-size: 0.90rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.90);
+  white-space: nowrap;
+}
+
+/* =====================================================
+   MICRO REFINO MOBILE
+   ===================================================== */
+
+@media (max-width: 520px) {
+  .product-grid.editorial {
+    gap: 22px 12px;
+    padding: 52px 0 72px;
+  }
+
+  .pcard__inner {
+    border-radius: 22px;
+    padding: 10px;
+  }
+
+  .pcard__media {
+    border-radius: 16px;
+  }
+
+  .pcard__title {
+    font-size: 0.90rem;
+  }
+
+  .pcard__price {
+    font-size: 0.86rem;
+  }
 }

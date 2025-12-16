@@ -1,14 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
 
+
 .product-page-container {
   background-color: #fff;
   color: #111;
   font-family: 'Montserrat', sans-serif;
   max-width: 1200px;
   margin: auto;
-  padding: 80px 20px 50px;
-}
 
+  /* 🔥 ALTURA REAL DA NAVBAR + RESPIRO VISUAL */
+  padding: calc(var(--header-offset) + 80px) 20px 50px;
+}
 .detail-grid-layout {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
